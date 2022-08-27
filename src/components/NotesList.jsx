@@ -6,7 +6,7 @@ import Note from "./Note";
 function NotesList() {
   const { notes } = useContext(NotesContext);
   return (
-    <div className="flex flex-col flex-wrap sm:flex-row justify-center gap-4 align-center">
+    <div className="flex flex-col flex-wrap sm:flex-row justify-center gap-6 align-center">
       {notes.map((note) => {
         return <Note key={note.id} note={note} />;
       })}

@@ -7,6 +7,15 @@ function Modal() {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
+  const handleClick = async () => {
+    if (author.length >= 3 && content.length >= 6) {
+      await addNote(author, content);
+      setAuthor("");
+      setContent("");
+      fetchNotes();
+    }
+  };
+
   return (
     <div>
       <label htmlFor="my-modal" className="btn modal-button rounded">
@@ -31,6 +40,11 @@ function Modal() {
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
+          {author.length < 3 && (
+            <p className="ml-0.5 mt-1 text-sm text-gray-600">
+              Author name should at least be 3 characters long
+            </p>
+          )}
           <input
             required
             type="text"
@@ -39,14 +53,18 @@ function Modal() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          {content.length < 6 && (
+            <p className="ml-0.5 mt-1 text-sm text-gray-600">
+              Content field should at least be 6 characters long
+            </p>
+          )}
           <div className="modal-action">
             <label
-              className="mt-4 modal-action block btn pt-4 rounded-md"
+              className={`mt-4 modal-action block btn pt-4 rounded-md ${
+                author.length < 3 || content.length < 6 ? "btn-disabled" : ""
+              }`}
               htmlFor="my-modal"
-              onClick={async () => {
-                await addNote(author, content);
-                fetchNotes();
-              }}
+              onClick={handleClick}
             >
               Submit
             </label>
