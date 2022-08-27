@@ -43,8 +43,8 @@ function Modal() {
             <label
               className="mt-4 modal-action block btn pt-4 rounded-md"
               htmlFor="my-modal"
-              onClick={() => {
-                addNote(author, content);
+              onClick={async () => {
+                await addNote(author, content);
                 fetchNotes();
               }}
             >
